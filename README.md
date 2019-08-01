@@ -1,1 +1,1 @@
-# iris-docker-template
+# InterSystems IRIS in docker template
