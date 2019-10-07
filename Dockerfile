@@ -1,4 +1,4 @@
-FROM intersystems/iris:2019.3.0.302.0
+FROM store/intersystems/iris-community:2019.3.0.309.0
 
 USER root
 
@@ -13,10 +13,10 @@ COPY Installer.cls .
 
 COPY src src
 
-COPY session.sh /
+COPY irissession.sh /
 
-SHELL ["/session.sh"]
+SHELL ["/irissession.sh"]
 
 RUN \
-do $SYSTEM.OBJ.Load("Installer.cls", "ck") \
-set sc = ##class(App.Installer).setup()
+  do $SYSTEM.OBJ.Load("Installer.cls", "ck") \
+  set sc = ##class(App.Installer).setup()
