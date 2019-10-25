@@ -2,14 +2,15 @@
 
 iris start $ISC_PACKAGE_INSTANCENAME quietly
  
-/bin/echo -e "" \
-  "do \$system.Process.CurrentDirectory(\"$PWD\")\n" \
-  "$@\n" \
-  "if '\$Get(sc) do \$System.Process.Terminate(, 1)" \
-  "do ##class(SYS.Container).QuiesceForBundling()\n" \
-  "do ##class(SYS.Container).SetMonitorStateOK(\"irisowner\")\n" \
-  "halt" \
-| iris session $ISC_PACKAGE_INSTANCENAME -U %SYS
+cat << EOF | iris session $ISC_PACKAGE_INSTANCENAME -U %SYS
+do ##class(%SYSTEM.Process).CurrentDirectory("$PWD")
+$@
+if '\$Get(sc) do ##class(%SYSTEM.Process).Process.Terminate(, 1)
+do ##class(SYS.Container).QuiesceForBundling()
+do ##class(SYS.Container).SetMonitorStateOK("irisowner")
+halt
+EOF
+
 exit=$?
 
 iris stop $ISC_PACKAGE_INSTANCENAME quietly
