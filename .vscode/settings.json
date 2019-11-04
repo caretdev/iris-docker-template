@@ -3,8 +3,12 @@
     "active": true,
     "host": "localhost",
     "port": 52773,
-    "username": "_SYSTEM",
-    "password": "SYS",
+    "username": "developer",
+    "password": "secure",
     "ns": "MYAPP",
+    "docker-compose": {
+      "service": "iris",
+      "port": "52773"
+    }
   }
 }
